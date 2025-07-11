@@ -19,9 +19,10 @@ export default {
     const userInput = await request.json();
 
     const requestBody = {
-      model: 'gpt-4o',
+      model: 'gpt-4o-mini', // Match your frontend model choice
       messages: userInput.messages,
-      max_completion_tokens: 300,
+      max_tokens: 400, // Match your frontend settings
+      temperature: 0.6 // Match your frontend settings
     };
 
     const response = await fetch(apiUrl, {

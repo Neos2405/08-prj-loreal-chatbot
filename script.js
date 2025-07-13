@@ -4,6 +4,8 @@ const userInput = document.getElementById("userInput");
 const chatWindow = document.getElementById("chatWindow");
 const newChatFormBtn = document.getElementById("newChatFormBtn");
 const newChatFormBtnMobile = document.getElementById("newChatFormBtnMobile");
+const latestQuestion = document.getElementById("latestQuestion");
+const latestQuestionContent = document.getElementById("latestQuestionContent");
 
 // Conversation context storage - keeps track of the entire conversation
 let conversationHistory = [];
@@ -255,13 +257,25 @@ function loadConversationFromStorage() {
     if (conversationHistory.length > 1) { // More than just the initial welcome
       chatWindow.innerHTML = ''; // Clear the chat window
       
-      // Recreate messages from history
+      let lastUserQuestion = null;
+      
+      // Recreate messages from history (normal chat format)
       conversationHistory.forEach(message => {
         if (message.role === 'assistant' || message.role === 'user') {
           const messageElement = createMessageElement(message.content, message.role === 'user');
           chatWindow.appendChild(messageElement);
+          
+          // Keep track of the last user question
+          if (message.role === 'user') {
+            lastUserQuestion = message.content;
+          }
         }
       });
+      
+      // Update latest question display with the last user question
+      if (lastUserQuestion) {
+        updateLatestQuestion(lastUserQuestion);
+      }
       
       scrollToBottom();
     }
@@ -288,9 +302,22 @@ function clearConversationHistory() {
     console.log('Could not clear localStorage:', error);
   }
   
+  // Hide latest question display
+  if (latestQuestion) {
+    latestQuestion.style.display = "none";
+  }
+  
   // Restart the chat
   chatWindow.innerHTML = '';
   initializeChat();
+}
+
+// Update latest question display above chatbox
+function updateLatestQuestion(question) {
+  if (latestQuestionContent && latestQuestion) {
+    latestQuestionContent.textContent = question;
+    latestQuestion.style.display = "block";
+  }
 }
 
 // Show/hide new chat button based on conversation history
@@ -399,10 +426,13 @@ chatForm.addEventListener("submit", async (e) => {
   // Don't send empty messages
   if (!message) return;
 
-  // Add user message to chat
+  // Update latest question display above chatbox
+  updateLatestQuestion(message);
+
+  // Add user message to chat (normal chat format)
   const userMessageElement = createMessageElement(message, true);
   chatWindow.appendChild(userMessageElement);
-  
+
   // Clear input field
   userInput.value = "";
   
@@ -421,7 +451,7 @@ chatForm.addEventListener("submit", async (e) => {
     // Remove loading element
     chatWindow.removeChild(loadingElement);
     
-    // Add AI response to chat
+    // Add AI response to chat (normal format)
     const aiMessageElement = createMessageElement(aiResponse, false);
     chatWindow.appendChild(aiMessageElement);
     

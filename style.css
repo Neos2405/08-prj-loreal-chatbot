@@ -58,7 +58,7 @@ body {
 .site-header {
   background-color: var(--loreal-white);
   border-bottom: 3px solid var(--loreal-beige);
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.6rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -79,21 +79,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .logo {
-  height: 40px;
+  height: 32px;
   width: auto;
   object-fit: contain;
 }
 
 .site-title {
   font-family: 'Halesworth eText', 'Playfair Display', Georgia, serif;
-  font-size: 0.9rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--loreal-black);
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 
@@ -111,27 +111,28 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 0;
+  margin-top: 65px; /* Push content below 80% sized header */
   padding: 1rem 2rem 1rem 2rem;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  height: calc(100vh - 80px); /* Account for fixed header */
+  height: calc(100vh - 65px); /* Account for 80% sized header */
   overflow: hidden;
 }
 
 /* Latest Question Display Above Chatbox */
 .latest-question {
   margin-bottom: 0.8rem;
-  padding: 0.6rem 0;
+  padding: 1rem 1.5rem;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid var(--border-light);
+  border-radius: 0;
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
   flex-shrink: 0; /* Prevent question from shrinking */
+  box-shadow: none;
   /* Desktop: horizontal layout, Mobile: will be overridden to column */
 }
 
@@ -425,28 +426,29 @@ main {
 /* Responsive Design - Mobile phones only */
 @media (max-width: 480px) {
   .site-header {
-    padding: 1rem;
+    padding: 0.8rem;
   }
   
   .header-content {
-    padding: 0.5rem;
+    padding: 0.4rem;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   
   .logo {
-    height: 32px;
+    height: 25.6px;
   }
   
   .site-title {
-    font-size: 0.8rem;
-    letter-spacing: 0.8px;
+    font-size: 0.64rem;
+    letter-spacing: 0.64px;
   }
   
   main {
     padding: 0.8rem 1rem;
-    height: calc(100vh - 90px); /* Account for smaller mobile header */
+    margin-top: 72px; /* Push content below 80% sized mobile header */
+    height: calc(100vh - 72px); /* Account for 80% sized mobile header */
   }
   
   .chatbox {
@@ -468,7 +470,7 @@ main {
   
   .latest-question {
     margin-bottom: 0.6rem;
-    padding: 0.4rem 0;
+    padding: 0.8rem 1rem;
     flex-direction: column; /* Only apply column layout on mobile */
     gap: 0.3rem;
   }
@@ -537,12 +539,12 @@ main {
 @media (max-width: 360px) {
   /* Very small screens - even more compact */
   .logo {
-    height: 28px;
+    height: 22.4px;
   }
   
   .site-title {
-    font-size: 0.7rem;
-    letter-spacing: 0.6px;
+    font-size: 0.56rem;
+    letter-spacing: 0.48px;
   }
   
   .message {
